@@ -1,0 +1,31 @@
+{
+    "version": 2,
+    "name": "amp-geo",
+    "builds": [
+        { "src": "www/*", "use": "@now/static" },
+        { "src": "www/img/*", "use": "@now/static" },
+        { "src": "api/node/*.js", "use": "@now/node" }
+    ],
+    "routes": [
+        {
+            "src": "/amp/v0/amp-geo-0.1.js",
+            "headers": {
+                "cache-control": "s-maxage=1800",
+                "content-type": "application/javascript"
+            },
+            "dest": "/api/node/index.js"
+        },
+        { "src": "/sw.js", "dest": "/www/sw.js" },
+        { "src": "/sw.html", "dest": "/www/sw.html" },
+        { "src": "/img/(.*)", "dest": "/www/img/$1" },
+        { "src": "/(.*)", "headers": {"cache-control": "s-maxage=1000"}, "dest": "/www/index.html" }
+    ],
+    "env": {
+        "MAXMIND_ACC": "@maxmind_acc",
+        "MAXMIND_TOKEN": "@maxmind_token"
+    },
+    "alias": [
+      "amp-geo.indieisaconcept.now.sh",
+      "amp-geo.expt.dev"
+    ]
+}
